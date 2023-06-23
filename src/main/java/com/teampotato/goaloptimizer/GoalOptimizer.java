@@ -1,13 +1,9 @@
 package com.teampotato.goaloptimizer;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-
-import java.util.Set;
 
 @Mod(GoalOptimizer.ID)
 public class GoalOptimizer {

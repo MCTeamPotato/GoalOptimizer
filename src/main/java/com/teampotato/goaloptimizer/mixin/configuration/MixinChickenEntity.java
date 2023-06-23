@@ -1,12 +1,12 @@
 package com.teampotato.goaloptimizer.mixin.configuration;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import static com.teampotato.goaloptimizer.GoalOptimizer.*;
 
-@Mixin(value = ChickenEntity.class, priority = 10)
-public abstract class MixinChickenEntity extends AnimalEntity {
+@Mixin(value = Chicken.class, priority = 10)
+public abstract class MixinChickenEntity extends Animal {
     @Shadow @Final private static Ingredient FOOD_ITEMS;
-    protected MixinChickenEntity(EntityType<? extends AnimalEntity> entityType, World world) {
+    protected MixinChickenEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
     }
 
@@ -27,14 +27,14 @@ public abstract class MixinChickenEntity extends AnimalEntity {
      */
     @Overwrite
     protected void registerGoals() {
-        ChickenEntity chickenEntity = (ChickenEntity) (Object) this;
-        if (chickenHasSwimGoal.get()) this.goalSelector.addGoal(0, new SwimGoal(chickenEntity));
+        Chicken chickenEntity = (Chicken) (Object) this;
+        if (chickenHasSwimGoal.get()) this.goalSelector.addGoal(0, new FloatGoal(chickenEntity));
         if (chickenHasPanicGoal.get()) this.goalSelector.addGoal(1, new PanicGoal(chickenEntity, 1.4D));
         if (chickenHasBreedGoal.get()) this.goalSelector.addGoal(2, new BreedGoal(chickenEntity, 1.0D));
-        if (chickenHasTemptGoal.get()) this.goalSelector.addGoal(3, new TemptGoal(chickenEntity, 1.0D, false, FOOD_ITEMS));
+        if (chickenHasTemptGoal.get()) this.goalSelector.addGoal(3, new TemptGoal(chickenEntity, 1.0D, FOOD_ITEMS, false));
         if (chickenHasFollowParentGoal.get()) this.goalSelector.addGoal(4, new FollowParentGoal(chickenEntity, 1.1D));
-        if (chickenHasWaterAvoidingRandomWalkingGoal.get()) this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(chickenEntity, 1.0D));
-        if (chickenHasLookAtGoal.get()) this.goalSelector.addGoal(6, new LookAtGoal(chickenEntity, PlayerEntity.class, 6.0F));
-        if (chickenHasLookRandomlyGoal.get()) this.goalSelector.addGoal(7, new LookRandomlyGoal(chickenEntity));
+        if (chickenHasWaterAvoidingRandomWalkingGoal.get()) this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(chickenEntity, 1.0D));
+        if (chickenHasLookAtGoal.get()) this.goalSelector.addGoal(6, new LookAtPlayerGoal(chickenEntity, Player.class, 6.0F));
+        if (chickenHasLookRandomlyGoal.get()) this.goalSelector.addGoal(7, new RandomLookAroundGoal(chickenEntity));
     }
 }
