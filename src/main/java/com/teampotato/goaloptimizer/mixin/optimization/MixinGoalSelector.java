@@ -27,15 +27,11 @@ public abstract class MixinGoalSelector {
      */
     @Overwrite
     public Stream<PrioritizedGoal> getRunningGoals() {
-        return this.getRunningGoalList().stream();
-    }
-
-    private List<PrioritizedGoal> getRunningGoalList() {
         List<PrioritizedGoal> runningGoals = new ArrayList<>();
         for (PrioritizedGoal goal : this.availableGoals) {
             if (goal.isRunning()) runningGoals.add(goal);
         }
-        return runningGoals;
+        return runningGoals.stream();
     }
 
     /**
@@ -61,8 +57,8 @@ public abstract class MixinGoalSelector {
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/stream/Stream;forEach(Ljava/util/function/Consumer;)V", ordinal = 0))
     private void onGoalStop(Stream<?> instance, Consumer<?> consumer) {
-        for (PrioritizedGoal goal : this.getRunningGoalList()) {
-            if (!goal.isRunning() || anyMatch(goal) || !goal.canContinueToUse()) goal.stop();
+        for (PrioritizedGoal goal : this.availableGoals) {
+            if (goal.isRunning() && (anyMatch(goal) || !goal.canContinueToUse())) goal.stop();
         }
     }
 
@@ -95,6 +91,8 @@ public abstract class MixinGoalSelector {
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/stream/Stream;forEach(Ljava/util/function/Consumer;)V", ordinal = 2))
     private void onGoalTick(Stream<?> instance, Consumer<?> consumer) {
-        for (PrioritizedGoal goal : this.getRunningGoalList()) goal.tick();
+        for (PrioritizedGoal goal : this.availableGoals) {
+            if (goal.isRunning()) goal.tick();
+        }
     }
 }
