@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.*;
 
-@Mixin(ClassInheritanceMultiMap.class)
+@Mixin(value = ClassInheritanceMultiMap.class, priority = 1)
 public abstract class MixinClassInheritanceMultiMap<T> extends AbstractCollection<T> {
     @Shadow @Final private Class<T> baseClass;
     @Shadow @Final private Map<Class<?>, List<T>> byClass;

@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-@Mixin(GoalSelector.class)
+@Mixin(value = GoalSelector.class, priority = 1)
 public abstract class MixinGoalSelector {
     @Shadow @Final private Set<PrioritizedGoal> availableGoals;
     @Shadow @Final private Map<Goal.Flag, PrioritizedGoal> lockedFlags;

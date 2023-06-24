@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.teampotato.goaloptimizer.mixin",
+  "plugin": "com.teampotato.goaloptimizer.MixinConfigPlugin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "goaloptimizer.refmap.json",
   "injectors": {
