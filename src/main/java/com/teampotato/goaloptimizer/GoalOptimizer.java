@@ -17,63 +17,58 @@ public class GoalOptimizer {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, configSpec);
     }
 
-    public static ForgeConfigSpec configSpec;
+    public static final ForgeConfigSpec configSpec;
 
     //Pig
-    public static ForgeConfigSpec.BooleanValue
-            pigHasSwimGoal,
-            pigHasPanicGoal,
-            pigHasBreedGoal,
-            pigHasTemptGoalOfCarrotOnAStick,
-            pigHasTemptGoalOnFood,
-            pigHasFollowParentGoal,
-            pigHasWaterAvoidingRandomWalingGoal,
-            pigHasLookAtGoal,
-            pigHasLookRandomlyGoal;
+    public static final ForgeConfigSpec.BooleanValue pigHasSwimGoal;
+    public static final ForgeConfigSpec.BooleanValue pigHasPanicGoal;
+    public static final ForgeConfigSpec.BooleanValue pigHasBreedGoal;
+    public static final ForgeConfigSpec.BooleanValue pigHasTemptGoalOfCarrotOnAStick;
+    public static final ForgeConfigSpec.BooleanValue pigHasTemptGoalOnFood;
+    public static final ForgeConfigSpec.BooleanValue pigHasFollowParentGoal;
+    public static final ForgeConfigSpec.BooleanValue pigHasWaterAvoidingRandomWalingGoal;
+    public static final ForgeConfigSpec.BooleanValue pigHasLookAtGoal;
+    public static final ForgeConfigSpec.BooleanValue pigHasLookRandomlyGoal;
 
     //Cow
-    public static ForgeConfigSpec.BooleanValue
-            cowHasSwimGoal,
-            cowHasPanicGoal,
-            cowHasBreedGoal,
-            cowHasTemptGoal,
-            cowHasFollowParentGoal,
-            cowHasWaterAvoidingRandomWalkingGoal,
-            cowHasLookAtGoal,
-            cowHasLookRandomlyGoal;
+    public static final ForgeConfigSpec.BooleanValue cowHasSwimGoal;
+    public static final ForgeConfigSpec.BooleanValue cowHasPanicGoal;
+    public static final ForgeConfigSpec.BooleanValue cowHasBreedGoal;
+    public static final ForgeConfigSpec.BooleanValue cowHasTemptGoal;
+    public static final ForgeConfigSpec.BooleanValue cowHasFollowParentGoal;
+    public static final ForgeConfigSpec.BooleanValue cowHasWaterAvoidingRandomWalkingGoal;
+    public static final ForgeConfigSpec.BooleanValue cowHasLookAtGoal;
+    public static final ForgeConfigSpec.BooleanValue cowHasLookRandomlyGoal;
 
     //Sheep
-    public static ForgeConfigSpec.BooleanValue
-            sheepHasEatGrassGoal,
-            sheepHasSwimGoal,
-            sheepHasPanicGoal,
-            sheepHasBreedGoal,
-            sheepHasTemptGoal,
-            sheepHasFollowParentGoal,
-            sheepHasWaterAvoidingRandomWalkingGoal,
-            sheepHasLookAtGoal,
-            sheepHasLookRandomlyGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasEatGrassGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasSwimGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasPanicGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasBreedGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasTemptGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasFollowParentGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasWaterAvoidingRandomWalkingGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasLookAtGoal;
+    public static final ForgeConfigSpec.BooleanValue sheepHasLookRandomlyGoal;
 
     //Fish
-    public static ForgeConfigSpec.BooleanValue
-            abstractFishHasPanicGoal,
-            abstractFishHasAvoidEntityGoal,
-            abstractFishHasSwimGoal,
-            abstractGroupFishHasFollowSchoolLeaderGoal,
-            pufferfishHasPufferGoal,
-            squidHasMoveRandomGoal,
-            squidHasFleeGoal;
+    public static final ForgeConfigSpec.BooleanValue abstractFishHasPanicGoal;
+    public static final ForgeConfigSpec.BooleanValue abstractFishHasAvoidEntityGoal;
+    public static final ForgeConfigSpec.BooleanValue abstractFishHasSwimGoal;
+    public static final ForgeConfigSpec.BooleanValue abstractGroupFishHasFollowSchoolLeaderGoal;
+    public static final ForgeConfigSpec.BooleanValue pufferfishHasPufferGoal;
+    public static final ForgeConfigSpec.BooleanValue squidHasMoveRandomGoal;
+    public static final ForgeConfigSpec.BooleanValue squidHasFleeGoal;
 
     //Chicken
-    public static ForgeConfigSpec.BooleanValue
-            chickenHasSwimGoal,
-            chickenHasPanicGoal,
-            chickenHasBreedGoal,
-            chickenHasTemptGoal,
-            chickenHasFollowParentGoal,
-            chickenHasWaterAvoidingRandomWalkingGoal,
-            chickenHasLookAtGoal,
-            chickenHasLookRandomlyGoal;
+    public static final ForgeConfigSpec.BooleanValue chickenHasSwimGoal;
+    public static final ForgeConfigSpec.BooleanValue chickenHasPanicGoal;
+    public static final ForgeConfigSpec.BooleanValue chickenHasBreedGoal;
+    public static final ForgeConfigSpec.BooleanValue chickenHasTemptGoal;
+    public static final ForgeConfigSpec.BooleanValue chickenHasFollowParentGoal;
+    public static final ForgeConfigSpec.BooleanValue chickenHasWaterAvoidingRandomWalkingGoal;
+    public static final ForgeConfigSpec.BooleanValue chickenHasLookAtGoal;
+    public static final ForgeConfigSpec.BooleanValue chickenHasLookRandomlyGoal;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
