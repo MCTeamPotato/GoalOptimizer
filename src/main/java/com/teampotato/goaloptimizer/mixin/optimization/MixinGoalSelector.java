@@ -34,20 +34,6 @@ public abstract class MixinGoalSelector {
         return runningGoals.stream();
     }
 
-    /**
-     * @author Kasualix
-     * @reason avoid stream
-     */
-    @Overwrite
-    public void removeGoal(Goal pTask) {
-        for (PrioritizedGoal goal : this.availableGoals) {
-            if (goal.getGoal() == pTask) {
-                this.availableGoals.remove(goal);
-                if (goal.isRunning()) goal.stop();
-            }
-        }
-    }
-
     private boolean anyMatch(PrioritizedGoal goal) {
         for (Goal.Flag flag : goal.getFlags()) {
             if (this.disabledFlags.contains(flag)) return true;
