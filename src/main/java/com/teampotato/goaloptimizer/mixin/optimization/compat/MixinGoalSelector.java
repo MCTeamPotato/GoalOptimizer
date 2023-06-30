@@ -12,9 +12,7 @@ import java.util.Set;
 
 @Mixin(GoalSelector.class)
 public class MixinGoalSelector {
-    @Shadow
-    @Final
-    private Set<PrioritizedGoal> availableGoals;
+    @Shadow @Final private Set<PrioritizedGoal> availableGoals;
 
     /**
      * @author Kasualix

@@ -1,25 +1,32 @@
 package com.teampotato.goaloptimizer.mixin.optimization;
 
+import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import net.minecraft.profiler.IProfiler;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 @Mixin(value = GoalSelector.class, priority = 1)
 public abstract class MixinGoalSelector {
-    @Shadow @Final private Set<PrioritizedGoal> availableGoals;
+    @Mutable @Shadow @Final private Set<PrioritizedGoal> availableGoals;
     @Shadow @Final private Map<Goal.Flag, PrioritizedGoal> lockedFlags;
     @Shadow @Final private EnumSet<Goal.Flag> disabledFlags;
     @Shadow @Final private static PrioritizedGoal NO_GOAL;
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void onInit(Supplier<IProfiler> iProfilerSupplier, CallbackInfo ci) {
+        this.availableGoals = new ObjectLinkedOpenHashSet<>(this.availableGoals);
+    }
 
     /**
      * @author Kasualix
