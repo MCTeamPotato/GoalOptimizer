@@ -1,19 +1,29 @@
 package com.teampotato.goaloptimizer.mixin.optimization;
 
+import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 @Mixin(GoalSelector.class)
 public abstract class MixinGoalSelector {
-    @Shadow @Final private Set<WrappedGoal> availableGoals;
+    @Mutable @Shadow @Final private Set<WrappedGoal> availableGoals;
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void onInit(Supplier<ProfilerFiller> iProfilerSupplier, CallbackInfo ci) {
+        this.availableGoals = new ObjectLinkedOpenHashSet<>(this.availableGoals);
+    }
 
     /**
      * @author Kasualix

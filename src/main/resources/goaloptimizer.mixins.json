@@ -4,6 +4,7 @@
   "package": "com.teampotato.goaloptimizer.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "goaloptimizer.refmap.json",
+  "plugin": "com.teampotato.goaloptimizer.MixinConfigPlugin",
   "injectors": {
     "defaultRequire": 1
   },
