@@ -1,18 +1,15 @@
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath group: 'org.spongepowered',  name: 'mixingradle', version: '0.7+'
-        classpath 'org.parchmentmc:librarian:1.+'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
@@ -23,7 +20,7 @@ archivesBaseName = 'goaloptimizer'
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
-    mappings channel: 'parchment', version: '2021.10.17-1.16.5'
+    mappings channel: 'official', version: '1.16.5'
     runs {
         client {
             workingDirectory project.file('run')
@@ -64,7 +61,9 @@ minecraft {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
