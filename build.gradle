@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.16.5-1.1.0'
+version = '1.16.5-1.1.1'
 group = 'com.teampotato.goaloptimizer'
 archivesBaseName = 'goaloptimizer'
 
@@ -65,9 +65,20 @@ sourceSets.main.resources {
     srcDir 'src/generated/resources'
 }
 
+repositories {
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation fg.deobf("curse.maven:enhanced-ai-515276:3577769")
+    implementation fg.deobf("curse.maven:insanelib-465109:3599474")
 }
 
 mixin {

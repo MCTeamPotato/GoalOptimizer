@@ -41,7 +41,8 @@ public abstract class MixinGoalSelector {
         return runningGoals.stream();
     }
 
-    private boolean anyMatch(PrioritizedGoal goal) {
+    @Unique
+    private boolean goalOptimizer$anyMatch(PrioritizedGoal goal) {
         for (Goal.Flag flag : goal.getFlags()) {
             if (this.disabledFlags.contains(flag)) return true;
         }
@@ -51,18 +52,20 @@ public abstract class MixinGoalSelector {
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/stream/Stream;forEach(Ljava/util/function/Consumer;)V", ordinal = 0))
     private void onGoalStop(Stream<?> instance, Consumer<?> consumer) {
         for (PrioritizedGoal goal : this.availableGoals) {
-            if (goal.isRunning() && (anyMatch(goal) || !goal.canContinueToUse())) goal.stop();
+            if (goal.isRunning() && (goalOptimizer$anyMatch(goal) || !goal.canContinueToUse())) goal.stop();
         }
     }
 
-    private boolean noneMatch(PrioritizedGoal goal) {
+    @Unique
+    private boolean goalOptimizer$noneMatch(PrioritizedGoal goal) {
         for (Goal.Flag flag : goal.getFlags()) {
             if (this.disabledFlags.contains(flag)) return false;
         }
         return true;
     }
 
-    private boolean allMatch(PrioritizedGoal goal) {
+    @Unique
+    private boolean goalOptimizer$allMatch(PrioritizedGoal goal) {
         for (Goal.Flag flag : goal.getFlags()) {
             if (!this.lockedFlags.getOrDefault(flag, NO_GOAL).canBeReplacedBy(goal)) return false;
         }
@@ -72,7 +75,7 @@ public abstract class MixinGoalSelector {
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/stream/Stream;forEach(Ljava/util/function/Consumer;)V", ordinal = 1))
     private void onGoalUpdate(Stream<?> instance, Consumer<?> consumer) {
         for (PrioritizedGoal goal : this.availableGoals) {
-            if (!goal.isRunning() && noneMatch(goal) && allMatch(goal) && goal.canUse()) {
+            if (!goal.isRunning() && goalOptimizer$noneMatch(goal) && goalOptimizer$allMatch(goal) && goal.canUse()) {
                 for (Goal.Flag flag : goal.getFlags()) {
                     this.lockedFlags.getOrDefault(flag, NO_GOAL).stop();
                     this.lockedFlags.put(flag, goal);
@@ -86,6 +89,22 @@ public abstract class MixinGoalSelector {
     private void onGoalTick(Stream<?> instance, Consumer<?> consumer) {
         for (PrioritizedGoal goal : this.availableGoals) {
             if (goal.isRunning()) goal.tick();
+        }
+    }
+
+    /**
+     * @author Kasualix
+     * @reason avoid stream
+     */
+    @Overwrite
+    public void removeGoal(Goal pTask) {
+        Iterator<PrioritizedGoal> goalIterator = this.availableGoals.iterator();
+        while (goalIterator.hasNext()) {
+            PrioritizedGoal goal = goalIterator.next();
+            if (goal.getGoal() == pTask) {
+                if (goal.isRunning()) goal.stop();
+                goalIterator.remove();
+            }
         }
     }
 }

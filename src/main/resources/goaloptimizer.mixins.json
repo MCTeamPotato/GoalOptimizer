@@ -18,7 +18,6 @@
     "configuration.fish.MixinPufferfishEntity",
     "configuration.fish.MixinSquidEntity",
     "optimization.MixinClassInheritanceMultiMap",
-    "optimization.MixinGoalSelector",
-    "optimization.compat.MixinGoalSelector"
+    "optimization.MixinGoalSelector"
   ]
 }

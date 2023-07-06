@@ -18,8 +18,8 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return (!mixinClassName.equals("com.teampotato.goaloptimizer.mixin.optimization.MixinGoalSelector") || !isLoaded("roadrunner")) &&
-                (!mixinClassName.equals("com.teampotato.goaloptimizer.mixin.optimization.compat.MixinGoalSelector") || !isLoaded("vampirism"));
+        if (mixinClassName.contains("optimization") && isLoaded("roadrunner")) return false;
+        return true;
     }
 
     private boolean isLoaded(String modID) {
