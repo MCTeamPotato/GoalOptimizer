@@ -72,6 +72,9 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    flatDir {
+        dirs 'lib'
+    }
 }
 
 dependencies {
@@ -79,6 +82,10 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf("curse.maven:enhanced-ai-515276:3577769")
     implementation fg.deobf("curse.maven:insanelib-465109:3599474")
+    implementation fg.deobf("curse.maven:vampirism-become-a-vampire-233029:4640398")
+    implementation fg.deobf("curse.maven:eidolon-patches-665468:4419213")
+    implementation fg.deobf(files("libs/mowziesmobs-1.5.27.jar"))
+    implementation fg.deobf("curse.maven:infernal-expansion-395078:3854047")
 }
 
 mixin {

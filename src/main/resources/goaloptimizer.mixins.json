@@ -9,15 +9,14 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "configuration.MixinChickenEntity",
-    "configuration.MixinCowEntity",
-    "configuration.MixinPigEntity",
-    "configuration.MixinSheepEntity",
-    "configuration.fish.MixinAbstractFishEntity",
-    "configuration.fish.MixinAbstractGroupFishEntity",
-    "configuration.fish.MixinPufferfishEntity",
-    "configuration.fish.MixinSquidEntity",
-    "optimization.MixinClassInheritanceMultiMap",
-    "optimization.MixinGoalSelector"
+    "addition.eidolon.VillagerEntityMixin",
+    "addition.eidolon.WitchEntityMixin",
+    "addition.mowziesmobs.AbstractSkeletonEntityMixin",
+    "addition.mowziesmobs.AbstractVillagerEntityMixin",
+    "addition.mowziesmobs.AnimalEntityMixin",
+    "addition.mowziesmobs.ParrotEntityMixin",
+    "addition.mowziesmobs.ZombieEntityMixin",
+    "deletion.eidolon.EventsMixin",
+    "deletion.mowziesmobs.ServerEventHandlerMixin"
   ]
 }
