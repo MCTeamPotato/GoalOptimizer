@@ -1,15 +1,18 @@
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://maven.parchmentmc.org' } // Add this line
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath group: 'org.spongepowered',  name: 'mixingradle', version: '0.7+'
+        classpath 'org.parchmentmc:librarian:1.+'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
@@ -17,10 +20,10 @@ version = '1.19.2-1.1.1'
 group = 'com.teampotato.goaloptimizer'
 archivesBaseName = 'goaloptimizer'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 
 minecraft {
-    mappings channel: 'official', version: '1.19.2'
+    mappings channel: 'parchment', version: '2022.11.27-1.19.2'
     runs {
         client {
             workingDirectory project.file('run')
